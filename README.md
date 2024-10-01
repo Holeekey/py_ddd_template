@@ -27,7 +27,7 @@ Este es un proyecto de ejemplo que utiliza FastAPI y Uvicorn para crear una API 
 Para iniciar el servidor, ejecuta el siguiente comando:
 
 ```bash
-uvicorn src.main:app --reload
+python src/main.py
 ```
 
 Esto iniciará el servidor en `http://127.0.0.1:8000`.
