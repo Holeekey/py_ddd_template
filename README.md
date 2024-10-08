@@ -8,14 +8,32 @@ Este es un proyecto de ejemplo que utiliza FastAPI y Uvicorn para crear una API 
 - FastAPI
 - Uvicorn
 
-## Instalación
+## Docker
+
+1. Levantar contenedor
+
+   ```bash
+   docker compose up -d
+   ```
+
+2. Consultar contenedores levantados
+
+   ```bash
+   docker ps
+   ```
+
+3. Detener contenedor
+
+   ```bash
+   docker stop template-database
+   ```
+
+## Correr aplicación
 
 1. Crea un entorno virtual:
 
    ```bash
    python -m venv env
-   .venv\Scripts\Activate.ps1 // Windows
-   source env/bin/activate // Linux
    ```
 
 2. Activa el entorno virtual:
@@ -23,14 +41,12 @@ Este es un proyecto de ejemplo que utiliza FastAPI y Uvicorn para crear una API 
    Windows
 
    ```bash
-   .venv\Scripts\Activate.ps1 // Windows
-   source env/bin/activate // Linux
+   .venv\Scripts\Activate.ps1
    ```
 
    macOS / Linux
 
    ```bash
-   .venv\Scripts\Activate.ps1
    source env/bin/activate
    ```
 
@@ -67,11 +83,10 @@ deactivate
 
 ```
 py_ddd_template/
-├── app/
+├── src/
 │   ├── main.py
-│   ├── routers/
-│   └── models/
-├── tests/
+│   ├── routes.py
+│   └── user/
 ├── requirements.txt
 └── README.md
 ```
