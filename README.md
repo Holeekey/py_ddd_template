@@ -10,14 +10,31 @@ Este es un proyecto de ejemplo que utiliza FastAPI y Uvicorn para crear una API 
 
 ## Instalación
 
-1. Crea un entorno virtual y actívalo:
+1. Crea un entorno virtual:
 
    ```bash
    python -m venv env
-   .venv\Scripts\Activate.ps1
+   .venv\Scripts\Activate.ps1 // Windows
+   source env/bin/activate // Linux
    ```
 
-2. Instala las dependencias:
+2. Activa el entorno virtual:
+
+   Windows
+
+   ```bash
+   .venv\Scripts\Activate.ps1 // Windows
+   source env/bin/activate // Linux
+   ```
+
+   macOS / Linux
+
+   ```bash
+   .venv\Scripts\Activate.ps1
+   source env/bin/activate
+   ```
+
+3. Instala las dependencias:
    ```bash
    pip install -r requirements.txt
    ```
