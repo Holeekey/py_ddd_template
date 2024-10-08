@@ -1,22 +1,14 @@
 import uvicorn
-import os
 from fastapi import FastAPI
-from dotenv import load_dotenv
 from routes import main_router
-
-load_dotenv()
+import config
 
 app = FastAPI()
 
-app.include_router(router=main_router)
+app.include_router(router=main_router, prefix=config.API_PREFIX)
 
 if __name__ == "__main__":
 
-   port = os.getenv('APP_PORT')
+   reload = config.STAGE == "dev"
 
-   if port is None:
-      port = 8000
-   else:
-      port = int(port)
-
-   uvicorn.run("main:app", host="127.0.0.1", port=port, reload=True)
+   uvicorn.run("main:app", host="127.0.0.1", port=config.APP_PORT, reload=reload)
