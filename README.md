@@ -28,6 +28,12 @@ Este es un proyecto de ejemplo que utiliza FastAPI y Uvicorn para crear una API 
    docker stop template-database
    ```
 
+## Aplicar migraciones a base de datos
+
+```bash
+alembic upgrade head
+```
+
 ## Correr aplicación
 
 1. Crea un entorno virtual:
