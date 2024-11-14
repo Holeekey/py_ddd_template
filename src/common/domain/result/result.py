@@ -1,6 +1,7 @@
 from typing import Generic, TypeVar, Optional
 
-from common.domain.utils import is_none, is_not_none
+from common.domain.utils.is_none import is_none
+from common.domain.utils.is_not_none import is_not_none
 
 T = TypeVar("T")
 

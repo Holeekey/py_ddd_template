@@ -1,11 +1,11 @@
 import uvicorn
 from fastapi import FastAPI
-from routes import main_router
+from routes import user_router
 import config
 
 app = FastAPI()
 
-app.include_router(router=main_router, prefix=config.API_PREFIX)
+app.include_router(router=user_router, prefix=config.API_PREFIX)
 
 if __name__ == "__main__":
 
