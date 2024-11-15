@@ -1,4 +1,5 @@
 from typing import Generic, Optional, TypeVar
+from common.application.error.application_error import ApplicationError
 from common.domain.result.result import Result
 
 T = TypeVar("T")
@@ -20,7 +21,7 @@ class AppResult(Result,Generic[T]):
     def __init__(
         self, 
         value: Optional[T] = None, 
-        error: Optional[Exception] = None,
+        error: Optional[ApplicationError] = None,
         info: Optional[ResultInfo] = None
     ):
         super().__init__(value, error)

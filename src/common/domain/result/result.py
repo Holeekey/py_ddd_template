@@ -1,15 +1,17 @@
-from typing import Generic, TypeVar, Optional
+from typing import Callable, Generic, TypeVar, Optional
 
+from common.application.error.application_error import ApplicationError
 from common.domain.utils.is_none import is_none
 from common.domain.utils.is_not_none import is_not_none
 
 T = TypeVar("T")
+R = TypeVar("R")
 
 class Result(Generic[T]):
     def __init__(
         self, 
         value: Optional[T] = None, 
-        error: Optional[Exception] = None
+        error: Optional[ApplicationError] = None
     ) -> None:
         if(is_none(value) and is_none(error)):
             raise ValueError("Value and error cannot be both None")
@@ -34,6 +36,12 @@ class Result(Generic[T]):
             return self._value
         return default
         
+    def handleError(self,handler: Callable[[ApplicationError], R]):
+        if(is_none(self._error)):
+            raise Exception("Cannot handle error")    
+        return handler(self._error)
+        
+
     @staticmethod
     def success(value: T) -> "Result[T]":
         return Result(value=value)
