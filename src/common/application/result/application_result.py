@@ -28,9 +28,9 @@ class AppResult(Result,Generic[T]):
         self._info = info
 
     @staticmethod
-    def success(value,info: ResultInfo):
+    def success(value: T,info: ResultInfo):
         return AppResult(value=value, info=info)
 
     @staticmethod
-    def failure(error):
+    def failure(error: ApplicationError):
         return AppResult(error=error)
