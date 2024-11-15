@@ -8,5 +8,5 @@ U = TypeVar("R")
 
 class IApplicationService(metaclass=ABCMeta):
     @abstractmethod
-    def execute(self, data: T) -> AppResult[U]:
+    async def execute(self, data: T) -> AppResult[U]:
         pass

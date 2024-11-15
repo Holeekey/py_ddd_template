@@ -1,5 +1,5 @@
 class ApplicationError(Exception):
-    def __init__(self, message: str, code: int, info):
+    def __init__(self, message: str, code: str, info=None):
         self.message = message
         self.code = code
         self.info = info

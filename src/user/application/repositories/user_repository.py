@@ -7,13 +7,21 @@ from user.application.models.user import User
 
 class IUserRepository(metaclass=ABCMeta):
     @abstractmethod
-    def find_one(self, id: int) -> Optional[User]:
+    async def find_one(self, id: int) -> Optional[User]:
         pass
 
     @abstractmethod
-    def find_all(self) -> Optional[List[User]]:
+    async def find_by_username(self, username: str) -> Optional[User]:
         pass
 
     @abstractmethod
-    def save(self, user: User) -> Result[User]:
+    async def find_by_email(self, email: str) -> Optional[User]:
+        pass
+
+    @abstractmethod
+    async def find_all(self) -> Optional[List[User]]:
+        pass
+
+    @abstractmethod
+    async def save(self, user: User) -> Result[User]:
         pass

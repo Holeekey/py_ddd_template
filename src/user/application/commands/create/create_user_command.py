@@ -6,6 +6,8 @@ from user.application.commands.create.types.response import CreateUserResponse
 from user.application.repositories.user_repository import IUserRepository
 from user.application.info.user_created_info import user_created_info
 from user.application.models.user import User
+from user.application.errors.username_already_exists import username_already_exists_error
+from user.application.errors.email_already_exists import email_already_exists_error
 
 
 class CreateUserCommand(IApplicationService):
@@ -14,7 +16,13 @@ class CreateUserCommand(IApplicationService):
         self._user_repository = user_repository
         self._id_generator = id_generator
 
-    def execute(self, data: CreateUserDto) -> AppResult[CreateUserResponse]:
+    async def execute(self, data: CreateUserDto) -> AppResult[CreateUserResponse]:
+
+        if await self._user_repository.find_by_username(username=data.username):
+            return AppResult.failure(error=username_already_exists_error)
+        
+        if await self._user_repository.find_by_email(email=data.email):
+            return AppResult.failure(error=email_already_exists_error)
 
         user = User(
             id=self._id_generator.generate(),
@@ -25,7 +33,7 @@ class CreateUserCommand(IApplicationService):
             username=data.username,
         )
 
-        self._user_repository.save(user=user)
+        await self._user_repository.save(user=user)
 
         return AppResult.success(
             value=CreateUserResponse(id=user.id), info=user_created_info
