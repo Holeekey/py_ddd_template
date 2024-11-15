@@ -3,7 +3,7 @@ from common.domain.utils.is_none import is_none
 from common.infrastructure.database.database import SessionLocal
 from user.application.models.user import User
 from user.application.repositories.user_repository import IUserRepository
-from user.infrastructure.repositories.models.postgres.sqlalchemy.user_model import UserModel
+from user.infrastructure.models.postgres.sqlalchemy.user_model import UserModel
 
 class UserRepositorySqlAlchemy(IUserRepository):
     def __init__(self):
@@ -19,11 +19,11 @@ class UserRepositorySqlAlchemy(IUserRepository):
             last_name=user_orm.last_name
         )
 
-    async def find_one(self, id: int):
-        for user in self.users:
-            if user.id == id:
-                return user
-        return None
+    async def find_one(self, id: str):
+        user_orm = self.db.query(UserModel).filter(UserModel.id == id).first()
+        if is_none(user_orm):
+            return None
+        return self.map_model_to_user(user_orm)
     
     async def find_by_username(self, username: str):
         user_orm = self.db.query(UserModel).filter(UserModel.username == username).first()
@@ -38,7 +38,8 @@ class UserRepositorySqlAlchemy(IUserRepository):
         return self.map_model_to_user(user_orm)
 
     async def find_all(self):
-        return self.users
+        users_orm = self.db.query(UserModel).all()
+        return [self.map_model_to_user(user_orm) for user_orm in users_orm]
 
     async def save(self, user: User):
         user_orm = UserModel(
