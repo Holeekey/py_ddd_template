@@ -8,6 +8,8 @@ from common.infrastructure.id_generator.uuid.uuid_generator import UUIDGenerator
 from common.infrastructure.responses.handlers.success_response_handler import success_response_handler
 from common.infrastructure.responses.handlers.error_response_handler import error_response_handler
 from user.application.commands.create.create_user_command import CreateUserCommand
+from user.application.queries.find_one.find_one_user_query import FindOneUserQuery
+from user.application.queries.find_one.types.dto import FindOneUserDto
 from user.infrastructure.repositories.mock.user_repository import UserRepositoryMock
 from user.infrastructure.repositories.postgres.sqlalchemy.user_repository import UserRepositorySqlAlchemy
 from user.infrastructure.routes.types.dto.create.create_user_dto import CreateUserDto
@@ -25,7 +27,13 @@ userRepository = UserRepositorySqlAlchemy()
 
 @user_router.get("/one/{id}")
 async def find_one_user(id):
-    return {"id": id, "name": "John Doe"}
+    
+        result = await ErrorDecorator(
+            service=FindOneUserQuery(user_repository=userRepository),
+            error_handler=error_response_handler,
+        ).execute(data=FindOneUserDto(id=id))
+    
+        return result.unwrap()
 
 @user_router.post("")
 async def create_user(body: CreateUserDto):
