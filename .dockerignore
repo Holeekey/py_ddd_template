@@ -1,0 +1,5 @@
+env
+/postgres
+.vscode
+README.md
+.gitignore

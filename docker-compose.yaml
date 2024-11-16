@@ -1,3 +1,4 @@
+version: '4'
 
 services:
   db:
@@ -11,3 +12,26 @@ services:
     container_name: template-database
     volumes:
       - ./postgres:/var/lib/postgresql/data
+    networks:
+      - template-network
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "${APP_PORT}:${APP_PORT}"
+    environment:
+      APP_PORT: ${APP_PORT}
+      STAGE: ${STAGE}
+      API_PREFIX: ${API_PREFIX}
+      DATABASE_URL: ${DATABASE_URL}
+    container_name: template-api
+    networks:
+      - template-network
+    depends_on:
+      - db
+
+networks:
+  template-network:
+    driver: bridge
