@@ -13,7 +13,8 @@ Este es un proyecto de ejemplo que utiliza FastAPI y Uvicorn para crear una API 
 1. Levantar contenedor
 
    ```bash
-   docker compose up -d
+   docker compose up --build -d
+   //esto no corre las migraciones de la base de datos automáticamente
    ```
 
 2. Consultar contenedores levantados
@@ -47,7 +48,7 @@ alembic upgrade head
    Windows
 
    ```bash
-   .venv\Scripts\Activate.ps1
+   env\Scripts\Activate.ps1
    ```
 
    macOS / Linux
@@ -89,13 +90,39 @@ deactivate
 
 ```
 py_ddd_template/
-├── src/
-│   ├── main.py
-│   ├── routes.py
-│   └── user/
-├── requirements.txt
-└── README.md
+└── src
+     ├── feature
+     │    ├── domain
+     │    │    ├── entities
+     │    │    ├── value_objects
+     │    │    ├── events
+     │    │    ├── errors
+     │    │    ├── factories
+     │    │    └── aggregate.py
+     │    ├── application
+     │    │    ├── commands
+     │    │    ├── queries
+     │    │    ├── info
+     │    │    ├── models
+     │    │    ├── errors
+     │    │    └── repositories
+     │    └── infrastructure
+     │         ├── models
+     │         │    └── db
+     │         │        └── orm
+     │         ├── repositories
+     │         │    └── db
+     │         │        └── orm
+     │         └── routes
+     ├── routes.py
+     ├── config.py
+     └── main.py
+
 ```
+
+## Consideraciones
+
+Las variables de entorno no se recargan automáticamente al cambiarlas, hay que reiniciar la terminal
 
 ## Autor
 
