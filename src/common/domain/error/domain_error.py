@@ -1,6 +1,6 @@
-from common.domain.error.error import Error
+from .error import Error
 
-class ApplicationError(Error):
+class DomainError(Error):
     def __init__(self, message: str, code: str, info=None):
         super().__init__(
             message = message,

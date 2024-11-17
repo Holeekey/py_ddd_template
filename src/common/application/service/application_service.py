@@ -1,12 +1,12 @@
 from abc import ABCMeta, abstractmethod
 from typing import TypeVar
 
-from common.application.result.application_result import AppResult
+from common.domain.result.result import Result
 
 T = TypeVar("T")
 U = TypeVar("R")
 
 class IApplicationService(metaclass=ABCMeta):
     @abstractmethod
-    async def execute(self, data: T) -> AppResult[U]:
+    async def execute(self, data: T) -> Result[U]:
         pass

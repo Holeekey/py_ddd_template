@@ -5,7 +5,6 @@ from common.infrastructure.id_generator.random.random_id_generator import (
     RandomIdGenerator,
 )
 from common.infrastructure.id_generator.uuid.uuid_generator import UUIDGenerator
-from common.infrastructure.responses.handlers.success_response_handler import success_response_handler
 from common.infrastructure.responses.handlers.error_response_handler import error_response_handler
 from user.application.commands.create.create_user_command import CreateUserCommand
 from user.application.queries.find_one.find_one_user_query import FindOneUserQuery

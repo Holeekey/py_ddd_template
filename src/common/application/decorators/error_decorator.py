@@ -1,7 +1,7 @@
 from typing import Callable, TypeVar
 from common.application.error.application_error import ApplicationError
-from common.application.result.application_result import AppResult, ResultInfo
 from common.application.service.application_service import IApplicationService
+from common.domain.result.result import Result
 
 T = TypeVar("T")
 R = TypeVar("R")
@@ -11,8 +11,8 @@ class ErrorDecorator(IApplicationService):
         self._service = service
         self._error_handler = error_handler
 
-    async def execute(self, data: T) -> AppResult[R]:
+    async def execute(self, data: T) -> Result[R]:
         result = await self._service.execute(data)
         if(result.is_error()):
-            raise result.handleError(self._error_handler)
+            raise result.handle_error(self._error_handler)
         return result

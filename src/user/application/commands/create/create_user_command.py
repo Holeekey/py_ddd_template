@@ -1,5 +1,5 @@
 from common.application.id_generator.id_generator import IDGenerator
-from common.application.result.application_result import AppResult
+from common.domain.result.result import Result
 from common.application.service.application_service import IApplicationService
 from user.application.commands.create.types.dto import CreateUserDto
 from user.application.commands.create.types.response import CreateUserResponse
@@ -16,13 +16,13 @@ class CreateUserCommand(IApplicationService):
         self._user_repository = user_repository
         self._id_generator = id_generator
 
-    async def execute(self, data: CreateUserDto) -> AppResult[CreateUserResponse]:
+    async def execute(self, data: CreateUserDto) -> Result[CreateUserResponse]:
 
         if await self._user_repository.find_by_username(username=data.username):
-            return AppResult.failure(error=username_already_exists_error)
+            return Result.failure(error=username_already_exists_error)
         
         if await self._user_repository.find_by_email(email=data.email):
-            return AppResult.failure(error=email_already_exists_error)
+            return Result.failure(error=email_already_exists_error)
 
         user = User(
             id=self._id_generator.generate(),
@@ -35,6 +35,6 @@ class CreateUserCommand(IApplicationService):
 
         await self._user_repository.save(user=user)
 
-        return AppResult.success(
+        return Result.success(
             value=CreateUserResponse(id=user.id), info=user_created_info
         )

@@ -1,4 +1,4 @@
-from common.application.result.application_result import AppResult
+from common.domain.result.result import Result
 from common.application.service.application_service import IApplicationService
 from common.domain.utils.is_none import is_none
 from user.application.info.user_found_info import user_found_info
@@ -11,13 +11,13 @@ class FindOneUserQuery(IApplicationService):
     def __init__(self, user_repository: IUserRepository):
         self.user_repository = user_repository
 
-    async def execute(self, data: FindOneUserDto) -> AppResult[FindOneUserResponse]:
+    async def execute(self, data: FindOneUserDto) -> Result[FindOneUserResponse]:
         user = await self.user_repository.find_one(data.id)
 
         if is_none(user):
-            return AppResult.failure(error=user_not_found_error)
+            return Result.failure(error=user_not_found_error)
 
-        return AppResult.success(
+        return Result.success(
             FindOneUserResponse(
                 id=user.id,
                 first_name=user.first_name,

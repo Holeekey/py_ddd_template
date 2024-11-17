@@ -1,8 +1,8 @@
 from fastapi import HTTPException
-from common.application.error.application_error import ApplicationError
 
+from common.domain.error.error import Error
 
-def error_response_handler(error: ApplicationError) -> Exception:
+def error_response_handler(error: Error) -> Exception:
     
     status_code: int
 
