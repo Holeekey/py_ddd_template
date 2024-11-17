@@ -19,9 +19,10 @@ class FindOneProductQuery(IApplicationService):
 
         if is_none(product):
             return Result.failure(product_not_found_error())
-        
-        return Result.success(FindOneProductResponse(
-            id=product.id.id,
-            name=product.name.name,
-            price=product.price.price
-        ), product_found_info())
+
+        return Result.success(
+            FindOneProductResponse(
+                id=product.id.id, name=product.name.name, price=product.price.price
+            ),
+            product_found_info(),
+        )

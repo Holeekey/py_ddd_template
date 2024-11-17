@@ -1,5 +1,6 @@
 from datetime import datetime
 
+
 class DomainEvent:
     def __init__(self, name: str):
         self._event_time = datetime.now()
@@ -11,4 +12,4 @@ class DomainEvent:
 
     @property
     def name(self) -> str:
-        return self._name   
+        return self._name

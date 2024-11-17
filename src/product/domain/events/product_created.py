@@ -5,13 +5,9 @@ from product.domain.value_objects.product_price import ProductPrice
 
 PRODUCT_CREATED = "product_created"
 
+
 class ProductCreated(DomainEvent):
-    def __init__(
-            self,
-            product_id: ProductId,
-            name: ProductName,
-            price: ProductPrice
-        ):
+    def __init__(self, product_id: ProductId, name: ProductName, price: ProductPrice):
         super().__init__(PRODUCT_CREATED)
         self.product_id = product_id
         self.product_name = name

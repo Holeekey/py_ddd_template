@@ -1,5 +1,7 @@
 class CreateUserDto:
-    def __init__(self, username: str, password: str, first_name: str, last_name: str, email: str):
+    def __init__(
+        self, username: str, password: str, first_name: str, last_name: str, email: str
+    ):
         self.username = username
         self.password = password
         self.first_name = first_name

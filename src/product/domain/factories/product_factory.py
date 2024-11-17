@@ -7,7 +7,7 @@ from product.domain.value_objects.product_price import ProductPrice
 
 
 def product_factory(id: UUID, name: str, price: str):
-    
+
     product_id = ProductId(id)
     product_name = ProductName(name)
     product_price = ProductPrice(price)

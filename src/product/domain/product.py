@@ -4,6 +4,7 @@ from product.domain.value_objects.product_id import ProductId
 from product.domain.value_objects.product_price import ProductPrice
 from .value_objects.product_name import ProductName
 
+
 class Product(Aggregate):
     def __init__(self, id: ProductId, name: ProductName, price: ProductPrice) -> None:
         super().__init__(id)

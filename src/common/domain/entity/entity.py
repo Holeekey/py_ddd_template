@@ -3,6 +3,7 @@ from ..value_object.value_object import ValueObject
 
 T = TypeVar("T", bound=ValueObject[Any])
 
+
 class Entity(Generic[T]):
     def __init__(self, id: T):
         self._id = id

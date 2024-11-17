@@ -3,5 +3,5 @@ from product.application.errors.codes.product_error_codes import ProductErrorCod
 
 product_name_already_exists_error = application_error_factory(
     code=ProductErrorCodes.NAME_ALREADY_EXISTS.value,
-    message="Product name already exists"
+    message="Product name already exists",
 )

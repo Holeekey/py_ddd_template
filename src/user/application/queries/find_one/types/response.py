@@ -1,4 +1,4 @@
-class FindOneUserResponse():
+class FindOneUserResponse:
     def __init__(self, id: str, first_name: str, last_name: str, email: str):
         self.id = id
         self.first_name = first_name

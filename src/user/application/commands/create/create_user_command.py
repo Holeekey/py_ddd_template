@@ -6,7 +6,9 @@ from user.application.commands.create.types.response import CreateUserResponse
 from user.application.repositories.user_repository import IUserRepository
 from user.application.info.user_created_info import user_created_info
 from user.application.models.user import User
-from user.application.errors.username_already_exists import username_already_exists_error
+from user.application.errors.username_already_exists import (
+    username_already_exists_error,
+)
 from user.application.errors.email_already_exists import email_already_exists_error
 
 
@@ -20,7 +22,7 @@ class CreateUserCommand(IApplicationService):
 
         if await self._user_repository.find_by_username(username=data.username):
             return Result.failure(error=username_already_exists_error())
-        
+
         if await self._user_repository.find_by_email(email=data.email):
             return Result.failure(error=email_already_exists_error())
 
@@ -36,6 +38,5 @@ class CreateUserCommand(IApplicationService):
         await self._user_repository.save(user=user)
 
         return Result.success(
-            value=CreateUserResponse(id=user.id),
-            info=user_created_info()
+            value=CreateUserResponse(id=user.id), info=user_created_info()
         )

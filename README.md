@@ -75,7 +75,7 @@ Esto iniciará el servidor en `http://127.0.0.1:8000`.
 ## Formatear archivo
 
 ```bash
-black [nombre_archivo].py
+black src
 ```
 
 ## Desactivar entorno virtual

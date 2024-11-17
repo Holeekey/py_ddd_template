@@ -1,6 +1,7 @@
 from sqlalchemy import Column, String
 from common.infrastructure.database.database import Base
 
+
 class UserModel(Base):
     __tablename__ = "users"
 

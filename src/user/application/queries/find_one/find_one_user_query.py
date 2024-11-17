@@ -7,6 +7,7 @@ from user.application.repositories.user_repository import IUserRepository
 from user.application.queries.find_one.types.dto import FindOneUserDto
 from user.application.errors.not_found import user_not_found_error
 
+
 class FindOneUserQuery(IApplicationService):
     def __init__(self, user_repository: IUserRepository):
         self.user_repository = user_repository
@@ -22,7 +23,7 @@ class FindOneUserQuery(IApplicationService):
                 id=user.id,
                 first_name=user.first_name,
                 last_name=user.last_name,
-                email=user.email
+                email=user.email,
             ),
-            info=user_found_info()
+            info=user_found_info(),
         )

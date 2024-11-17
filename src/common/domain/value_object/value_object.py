@@ -3,6 +3,7 @@ from abc import ABC, abstractmethod
 
 T = TypeVar("T")
 
+
 class ValueObject(ABC, Generic[T]):
     def __init__(self, value: T):
         self.value = value

@@ -4,7 +4,7 @@ from user.application.repositories.user_repository import IUserRepository
 
 
 class UserRepositoryMock(IUserRepository):
-    
+
     users: List[User]
 
     def __init__(self):
@@ -15,7 +15,7 @@ class UserRepositoryMock(IUserRepository):
             if user.id == id:
                 return user
         return None
-    
+
     async def find_by_username(self, username: str):
         for user in self.users:
             if user.username == username:

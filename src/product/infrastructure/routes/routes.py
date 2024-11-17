@@ -3,18 +3,30 @@ from fastapi import APIRouter
 
 from common.application.decorators.error_decorator import ErrorDecorator
 from common.infrastructure.id_generator.uuid.uuid_generator import UUIDGenerator
-from common.infrastructure.responses.handlers.error_response_handler import error_response_handler
-from common.infrastructure.responses.handlers.success_response_handler import success_response_handler
-from product.application.commands.create.create_product_command import CreateProductCommand
-from product.application.queries.find_one.find_one_product_query import FindOneProductQuery
+from common.infrastructure.responses.handlers.error_response_handler import (
+    error_response_handler,
+)
+from common.infrastructure.responses.handlers.success_response_handler import (
+    success_response_handler,
+)
+from product.application.commands.create.create_product_command import (
+    CreateProductCommand,
+)
+from product.application.queries.find_one.find_one_product_query import (
+    FindOneProductQuery,
+)
 from product.application.queries.find_one.types.dto import FindOneProductDto
-from product.infrastructure.repositories.postgres.sqlalchemy.product_repository import ProductRepositorySqlAlchemy
+from product.infrastructure.repositories.postgres.sqlalchemy.product_repository import (
+    ProductRepositorySqlAlchemy,
+)
 from product.infrastructure.routes.types.create_product_dto import CreateProductDto
 from user.application.commands.create.create_user_command import CreateUserCommand
 from user.application.queries.find_one.find_one_user_query import FindOneUserQuery
 from user.application.queries.find_one.types.dto import FindOneUserDto
 from user.infrastructure.repositories.mock.user_repository import UserRepositoryMock
-from user.infrastructure.repositories.postgres.sqlalchemy.user_repository import UserRepositorySqlAlchemy
+from user.infrastructure.repositories.postgres.sqlalchemy.user_repository import (
+    UserRepositorySqlAlchemy,
+)
 from user.infrastructure.routes.types.dto.create.create_user_dto import CreateUserDto
 
 
@@ -31,12 +43,12 @@ product_repository = ProductRepositorySqlAlchemy()
 async def find_one_product(id: UUID):
 
     result = await ErrorDecorator(
-            service=FindOneProductQuery(product_repository=product_repository),
-            error_handler=error_response_handler,
-        ).execute(data=FindOneProductDto(id=id))
-    
+        service=FindOneProductQuery(product_repository=product_repository),
+        error_handler=error_response_handler,
+    ).execute(data=FindOneProductDto(id=id))
+
     return result.handle_success(handler=success_response_handler)
-     
+
 
 @product_router.post("")
 async def create_product(body: CreateProductDto):
@@ -48,8 +60,7 @@ async def create_product(body: CreateProductDto):
         service=CreateProductCommand(
             id_generator=idGenerator, product_repository=product_repository
         ),
-        error_handler= error_response_handler,
+        error_handler=error_response_handler,
     ).execute(data=body)
 
     return result.handle_success(handler=success_response_handler)
-
