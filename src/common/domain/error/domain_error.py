@@ -7,3 +7,12 @@ class DomainError(Error):
             code = code, kind = 'DOMAIN',
             info = info
         )
+
+def domain_error_factory(code: str, message: str):
+    def func(info=None):
+        return DomainError(
+            message = message,
+            code = code,
+            info = info
+        )
+    return func

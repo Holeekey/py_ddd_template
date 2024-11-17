@@ -7,3 +7,12 @@ class ApplicationError(Error):
             code = code, kind = 'DOMAIN',
             info = info
         )
+
+def application_error_factory(code: str, message: str):
+    def func(info=None):
+        return ApplicationError(
+            message = message,
+            code = code,
+            info = info
+        )
+    return func

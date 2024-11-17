@@ -1,7 +1,10 @@
 
 
-from common.domain.result.result import ResultInfo
+from common.domain.result.result import result_info_factory
 from user.application.info.codes.user_codes import UserCodes
 
 
-user_found_info = ResultInfo(UserCodes.FIND_ONE, "User found successfully")
+user_found_info = result_info_factory(
+    code=UserCodes.FIND_ONE,
+    message="User found successfully"
+)

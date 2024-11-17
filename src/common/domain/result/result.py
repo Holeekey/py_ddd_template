@@ -9,9 +9,10 @@ T = TypeVar("T")
 R = TypeVar("R")
 
 class ResultInfo:
-    def __init__(self, code: str, message: str):
+    def __init__(self, code: str, message: str, data = None):
         self._code = code
         self._message = message
+        self._data = data
 
     @property
     def code(self):
@@ -21,11 +22,21 @@ class ResultInfo:
     def message(self):
         return self._message
     
+    @property
+    def data(self):
+        return self._data
+    
     def to_dict(self):
         return {
             "code": self._code,
-            "message": self._message
+            "message": self._message,
+            "data": self._data.__str__() if is_not_none(self._data) else None
         }
+
+def result_info_factory(code: str, message: str):
+    def func(info = None):
+        return ResultInfo(code=code, message=message, data=info)
+    return func
 
 class Result(Generic[T]):
     def __init__(

@@ -15,7 +15,7 @@ class FindOneUserQuery(IApplicationService):
         user = await self.user_repository.find_one(data.id)
 
         if is_none(user):
-            return Result.failure(error=user_not_found_error)
+            return Result.failure(error=user_not_found_error())
 
         return Result.success(
             FindOneUserResponse(
@@ -24,5 +24,5 @@ class FindOneUserQuery(IApplicationService):
                 last_name=user.last_name,
                 email=user.email
             ),
-            info=user_found_info
+            info=user_found_info()
         )

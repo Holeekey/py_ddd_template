@@ -19,10 +19,10 @@ class CreateUserCommand(IApplicationService):
     async def execute(self, data: CreateUserDto) -> Result[CreateUserResponse]:
 
         if await self._user_repository.find_by_username(username=data.username):
-            return Result.failure(error=username_already_exists_error)
+            return Result.failure(error=username_already_exists_error())
         
         if await self._user_repository.find_by_email(email=data.email):
-            return Result.failure(error=email_already_exists_error)
+            return Result.failure(error=email_already_exists_error())
 
         user = User(
             id=self._id_generator.generate(),
@@ -36,5 +36,6 @@ class CreateUserCommand(IApplicationService):
         await self._user_repository.save(user=user)
 
         return Result.success(
-            value=CreateUserResponse(id=user.id), info=user_created_info
+            value=CreateUserResponse(id=user.id),
+            info=user_created_info()
         )
